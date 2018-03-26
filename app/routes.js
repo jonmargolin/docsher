@@ -23,11 +23,30 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/HomePage'),
+          System.import( 'containers/MainDraft/reducer'),
+          System.import( 'containers/MainDraft/sagas'),
+          System.import('containers/NavigationContainer/reducer'),
+          System.import('containers/NavigationContainer/sagas'),
+          System.import('containers/infoContainer/reducer'),
+          System.import('containers/infoContainer/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([component,
+          maindraftReducer,
+          maindraftSagas,
+          navigationReducer,
+          navigationSagas,
+          infoReducer,
+          infoSagas,
+        ]) => {
+          injectReducer('MainDraft',  maindraftReducer.default);
+          injectSagas('MainDraft', maindraftSagas.default);
+          injectReducer('navigationContainer',  navigationReducer.default);
+          injectSagas('navigationContainer', navigationSagas.default);
+          injectReducer('infoContainer',  infoReducer.default);
+          injectSagas('infoContainer', infoSagas.default);
           renderRoute(component);
         });
 

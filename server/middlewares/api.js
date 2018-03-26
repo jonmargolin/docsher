@@ -5,7 +5,7 @@ const uuid = require('uuid');
 function setupDb() {
   const db = low();
 
-  db.defaults({ topics: [], links: [] })
+  db.defaults({ topics: [],data: [], links: [] })
     .value();
 
   const topic1 = {
@@ -22,9 +22,14 @@ function setupDb() {
     name: 'news',
     description: 'links to programming related news articles',
   };
-
-
-  db.get('topics').push(topic1).value();
+const data1={
+  vn: '2',
+  pe: '233',
+  com: '555',
+  suj: '5555'
+}
+db.get('data').push(data1).value();
+  db.get('topics').push(data1).value();
   db.get('topics').push(topic2).value();
   db.get('topics').push(topic3).value();
 
@@ -84,6 +89,9 @@ module.exports = (app) => {
 
   app.get('/api/topics', (req, res) => {
     res.send(db.get('topics').toArray().value());
+  });
+  app.get('/api/data', (req, res) => {
+    res.send(db.get('data').toArray().value());
   });
 
   app.get('/api/topics/:name/links', (req, res) => {

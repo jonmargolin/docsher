@@ -1,0 +1,20 @@
+.info { /* stylelint-disable */
+background-color: #00a699;
+text-align: center;
+}
+.info img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.info span{
+    display: block;
+    margin-top: -18px;
+    color: white;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+.title{
+
+    font-size: 1.2em!important;
+}
